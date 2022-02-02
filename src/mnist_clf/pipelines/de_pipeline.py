@@ -3,6 +3,12 @@ from kedro.pipeline import Pipeline, node
 
 
 def load_mnist():
+    """
+    A function to load and transoform the image data to 2D matrix
+    
+    Params: None
+    Return: A tuple of four variables, train inputs, train labels, test inputs, and test labels
+    """
     (train_inputs, train_labels), (test_inputs, test_labels) = mnist.load_data()
 
     train_shape, test_shape = train_inputs.shape, test_inputs.shape
@@ -17,7 +23,7 @@ def load_mnist():
 
     return train_inputs, train_labels, test_inputs, test_labels
 
-
+# create a Kedro node
 load_mnist_node = node(
     func=load_mnist,
     inputs=None,
@@ -27,4 +33,10 @@ load_mnist_node = node(
 
 
 def create_pipeline(**kwargs):
+    """
+    A function to create a Kedro pipeline
+    
+    Params: None
+    Return: A pipeline object with a list of nodes
+    """
     return Pipeline([load_mnist_node])

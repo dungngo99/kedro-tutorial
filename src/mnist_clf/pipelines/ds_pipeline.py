@@ -5,6 +5,12 @@ import logging
 
 
 def train_model(train_inputs, train_labels, test_inputs, test_labels):
+    """
+    A function to train the RandomForestClassifier model with the training dataset and compute the test accuracy
+
+    Params: A tuple of four variables, train inputs, train labels, test inputs, and test labels
+    Return: A score number
+    """
     forest_clf = RandomForestClassifier(random_state=42)
     forest_clf.fit(train_inputs, train_labels)
     score = forest_clf.score(test_inputs, test_labels)
@@ -12,6 +18,7 @@ def train_model(train_inputs, train_labels, test_inputs, test_labels):
     return score
 
 
+# create a train model node
 train_model_node = node(
     func=train_model,
     inputs=["train_inputs", "train_labels", "test_inputs", "test_labels"],
@@ -21,4 +28,10 @@ train_model_node = node(
 
 
 def create_pipeline():
+    """
+    A function to create a Kedro pipeline
+
+    Params: None
+    Return: A pipeline object with a list of nodes
+    """
     return Pipeline([train_model_node])
