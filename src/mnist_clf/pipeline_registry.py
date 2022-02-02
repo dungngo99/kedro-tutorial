@@ -30,6 +30,7 @@
 from typing import Dict
 
 from kedro.pipeline import Pipeline
+from .pipelines import de_pipeline, ds_pipeline
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -38,4 +39,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     Returns:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
-    return {"__default__": Pipeline([])}
+    _de_pipeline = de_pipeline()
+    _ds_pipeline = ds_pipeline()
+
+    return {"__default__": Pipeline([_de_pipeline, _ds_pipeline])}
